@@ -177,7 +177,7 @@ class BertEmbeddings(nn.Module):
         words_embeddings = self.word_embeddings(input_ids)
         position_embeddings = self.position_embeddings(position_ids)
         token_type_embeddings = self.token_type_embeddings(token_type_ids)
-
+        # 把所有的embedding加到了一起
         embeddings = words_embeddings + position_embeddings + token_type_embeddings + senti_word_embeddings + pos_tag_embeddings + polarity_embeddings
         embeddings = self.LayerNorm(embeddings)
         embeddings = self.dropout(embeddings)

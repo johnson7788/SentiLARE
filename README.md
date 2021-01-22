@@ -2,7 +2,8 @@
 
 ## Introduction
 
-SentiLARE is a sentiment-aware pre-trained language model enhanced by linguistic knowledge. You can read our [paper](https://www.aclweb.org/anthology/2020.emnlp-main.567/) for more details. This project is a PyTorch implementation of our work.
+SentiLARE是一种通过语言知识增强的感知情感的预训练语言模型。 
+您可以阅读我们的[paper](https://www.aclweb.org/anthology/2020.emnlp-main.567/)了解更多详细信息。 该项目是我们工作的PyTorch实施。
 
 ## Dependencies
 
@@ -15,15 +16,16 @@ SentiLARE is a sentiment-aware pre-trained language model enhanced by linguistic
 * [Sentence Transformers](https://github.com/UKPLab/sentence-transformers) 0.2.6 (Optional, used for linguistic knowledge acquisition during pre-training and fine-tuning)
 * NLTK (Optional, used for linguistic knowledge acquisition during pre-training and fine-tuning)
 
-## Quick Start for Fine-tuning
+## 微调快速入门 
 
-### Datasets of Downstream Tasks
+### 下游任务数据集 
 
-Our experiments contain sentence-level sentiment classification (e.g. SST / MR / IMDB / Yelp-2 / Yelp-5) and aspect-level sentiment analysis (e.g. Lap14 / Res14 / Res16). You can download the pre-processed datasets ([Google Drive](https://drive.google.com/drive/folders/1v84riTNxCMJi3HWhJdDNyBryCtTTfNjy?usp=sharing) / [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/f6baaff5c398463388b2/)) of the downstream tasks. The detailed description of the data formats is attached to the datasets.
+我们的实验包含sentence-level的情感分类(例如SST / MR / IMDB / Yelp-2 / Yelp-5)和aspect-level的情感分析(例如Lap14 / Res14 / Res16)。 
+您可以下载预处理的数据集 ([Google Drive](https://drive.google.com/drive/folders/1v84riTNxCMJi3HWhJdDNyBryCtTTfNjy?usp=sharing) / [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/f6baaff5c398463388b2/)) 下游任务。 数据格式的详细说明附在数据集上。 
 
-### Fine-tuning
+### 微调 Fine-tuning
 
-To quickly conduct the fine-tuning experiments, you can directly download the checkpoint ([Google Drive](https://drive.google.com/drive/folders/1v84riTNxCMJi3HWhJdDNyBryCtTTfNjy?usp=sharing) / [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/f6baaff5c398463388b2/)) of our pre-trained model. We show the example of fine-tuning SentiLARE on SST as follows:
+要快速进行微调实验，您可以直接下载checkpoint  ([Google Drive](https://drive.google.com/drive/folders/1v84riTNxCMJi3HWhJdDNyBryCtTTfNjy?usp=sharing) / [Tsinghua Cloud](https://cloud.tsinghua.edu.cn/d/f6baaff5c398463388b2/)) 我们预训练的模型, 我们显示了在SST上微调SentiLARE的样本，如下所示： 
 
 ```shell
 cd finetune
@@ -46,17 +48,21 @@ CUDA_VISIBLE_DEVICES=0,1,2 python run_sent_sentilr_roberta.py \
           --overwrite_output_dir
 ```
 
-Note that `data_dir` is set to the directory of pre-processed SST dataset, and `model_name_or_path` is set to the directory of the pre-trained model checkpoint. `output_dir` is the directory to save the fine-tuning checkpoints. You can refer to the fine-tuning codes to get the description of other hyper-parameters.
+注意，`data_dir` 设置为预处理的SST数据集的目录，而`model_name_or_path`设置为预处理的模型checkpoint的目录。 
+`output_dir`是保存微调checkpoint的目录。 您可以参考微调代码以获取其他超参数的描述。
 
-More details about fine-tuning SentiLARE on other datasets can be found in [`finetune/README.MD`](https://github.com/thu-coai/SentiLARE/tree/master/finetune).
+
+有关在其他数据集上微调SentiLARE的更多详细信息，请参见 [`finetune/README.MD`](https://github.com/thu-coai/SentiLARE/tree/master/finetune).
 
 ### POS Tagging and Polarity Acquisition for Downstream Tasks
 
-During pre-processing, we tokenize the original datasets with NLTK, tag the sentences with Stanford Log-Linear Part-of-Speech Tagger, and obtain the sentiment polarity with Sentence-BERT. We further release the original datasets and the pre-processing scripts (to be announced soon), so you can follow our pipeline to acquire linguistic knowledge for your own datasets.
+在预处理期间，我们使用NLTK tokenize原始数据集，使用Stanford Log-Linear Tagger 标注句子，
+并使用Sentence-BERT获得情感倾向。 我们会很快发布了原始数据集和预处理脚本(即将发布)，因此您可以按照我们的流程来获取自己数据集的语言知识。
+
 
 ## Pre-training
-
-If you want to conduct pre-training by yourself instead of directly using the checkpoint we provide, this part may help you pre-process the pre-training dataset and run the pre-training scripts.
+如果您想自己进行预训练，而不是直接使用我们提供的checkpoint，
+则本部分可以帮助您预处理预训练数据集并运行预训练脚本。 
 
 ### Dataset
 
@@ -64,11 +70,13 @@ We use Yelp Dataset Challenge 2019 as our pre-training dataset. According to the
 
 ### POS Tagging and Polarity Acquisition for Pre-training Dataset
 
-Similar to fine-tuning, we also conduct part-of-speech tagging and sentiment polarity acquisition on the pre-training dataset. The pre-processing scripts will be announced soon. Note that since the pre-training dataset is quite large, the pre-processing procedure may take a long time because we need to use Sentence-BERT to obtain the representation vectors of all the sentences in the pre-training dataset.
+类似于微调，我们还对预训练数据集进行词性标注和情感倾向获取。
+预处理脚本将很快发布。 请注意，由于预训练数据集非常大，因此预处理过程可能会花费很长时间，
+因为我们需要使用Sentence-BERT来获取预训练数据集中所有句子的表示向量。 
 
 ### Pre-training
 
-The pre-training codes will be released soon.
+预训练代码将很快发布。 
 
 ## Citation
 
